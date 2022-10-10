@@ -5,7 +5,7 @@ import dland_items.dland_items.Completers.dlandItemCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DLand_Items extends JavaPlugin {
-    public static String version = "1.1.4";
+    public static String version = "1.1.4beta";
     @Override
     public void onEnable() {
 
