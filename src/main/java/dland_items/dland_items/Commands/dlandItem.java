@@ -109,7 +109,7 @@ public class dlandItem implements CommandExecutor {
                     ItemMeta AdminSwordMeta = AdminSword.getItemMeta();
                     AdminSwordMeta.setDisplayName("" + ChatColor.RED + ChatColor.BOLD + "Меч Админа");
                     AdminSwordMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier("GENERIC_ATTACK_DAMAGE", 1000, AttributeModifier.Operation.ADD_NUMBER));
-                    List loreList = new ArrayList<>();
+                    List<String> loreList = new ArrayList<>();
                     loreList.add(ChatColor.GOLD + "Урон : " + ChatColor.RED + ChatColor.BOLD + "1000");
                     loreList.add("");
                     loreList.add(ChatColor.GOLD + "Особенности : ");
@@ -119,6 +119,7 @@ public class dlandItem implements CommandExecutor {
                     AdminSwordMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                     AdminSwordMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                     AdminSwordMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
+                    AdminSwordMeta.setLore(loreList);
 
                     AdminSword.setItemMeta(AdminSwordMeta);
                     if (player.hasPermission("dlanditems.admin")) {
@@ -133,7 +134,7 @@ public class dlandItem implements CommandExecutor {
                     ItemMeta AdminStickMeta = AdminStick.getItemMeta();
                     AdminStickMeta.setDisplayName("" + ChatColor.RED + ChatColor.BOLD + "Палка Админа");
                     AdminStickMeta.addEnchant(Enchantment.KNOCKBACK, 1000, false);
-                    List loreList = new ArrayList<>();
+                    List<String> loreList = new ArrayList<>();
                     loreList.add(ChatColor.GOLD + "Откидывание : " + ChatColor.DARK_PURPLE + ChatColor.BOLD + "1000");
                     loreList.add("");
                     loreList.add(ChatColor.GOLD + "Особенности : ");
@@ -143,6 +144,7 @@ public class dlandItem implements CommandExecutor {
                     AdminStickMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                     AdminStickMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                     AdminStickMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
+                    AdminStickMeta.setLore(loreList);
 
                     AdminStick.setItemMeta(AdminStickMeta);
                     if (player.hasPermission("dlanditems.admin")) {
@@ -152,7 +154,27 @@ public class dlandItem implements CommandExecutor {
                         sender.sendMessage(ChatColor.RED + "У выбранного игрока нет прав на хранение данного предмета");
                         return true;
                     }
-                } // next item here
+                } else if (args[2].equalsIgnoreCase("dlandlist")) {
+                    if (args.length == 4) {
+                        ItemStack DLandList = new ItemStack(Material.PAPER, 1);
+                        ItemMeta DLandListMeta = DLandList.getItemMeta();
+                        DLandListMeta.setDisplayName("" + ChatColor.RED + ChatColor.BOLD + "D" + ChatColor.BLUE + ChatColor.BOLD + "Land");
+                        List<String> loreList = new ArrayList<>();
+                        loreList.add(args[3]);
+                        loreList.add(ChatColor.DARK_GRAY + "Создано админом DLand");
+                        DLandListMeta.setLore(loreList);
+                        DLandList.setItemMeta(DLandListMeta);
+
+                        if (player.hasPermission("dlanditems.admin")){
+                            player.getInventory().addItem(DLandList);
+                        } else {
+                            sender.sendMessage(ChatColor.RED + "У выбранного игрока нет прав на хранение данного предмета");
+                        }
+                        return true;
+                    } else {
+                        sender.sendMessage(ChatColor.RED + "Вы не указали описание предмета (после DLandList)!");
+                    }
+                }
             } else if (args[0].equals("help")) {
                 sender.sendMessage(ChatColor.DARK_PURPLE + "=====================" + ChatColor.LIGHT_PURPLE + "DLand_Items"+ ChatColor.DARK_PURPLE +"=====================");
                 sender.sendMessage(ChatColor.GRAY + "> DLand Items - это плагин на необычные");

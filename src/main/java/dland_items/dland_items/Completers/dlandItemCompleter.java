@@ -22,10 +22,11 @@ public class dlandItemCompleter implements TabCompleter {
             return List.of(
                 "SharpSword",
                 "LuckyPickaxe",
-                "InfiniHoe",
+                "InfinyHoe",
                 "HunterSword",
                 "AdminSword",
-                "AdminStick"
+                "AdminStick",
+                "DLandList"
             );
         }
         return null;
