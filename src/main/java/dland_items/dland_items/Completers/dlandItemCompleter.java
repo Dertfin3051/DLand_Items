@@ -11,12 +11,7 @@ public class dlandItemCompleter implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1){
             return List.of(
-                "give",
-                "help"
-            );
-        } else if (args.length == 2){
-            return List.of(
-              "nickname"
+                "give"
             );
         } else if (args.length == 3){
             return List.of(
@@ -27,6 +22,15 @@ public class dlandItemCompleter implements TabCompleter {
                 "AdminSword",
                 "AdminStick",
                 "DLandList"
+            );
+        } else if (args.length == 4 && args[2].equalsIgnoreCase("dlandlist")) {
+            return List.of(
+                "List"
+            );
+        } else if (args.length == 5 && args[2].equalsIgnoreCase("dlandlist")) {
+            return List.of(
+                "RED",
+                "BLUE"
             );
         }
         return null;

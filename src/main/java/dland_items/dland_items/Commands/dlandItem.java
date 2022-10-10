@@ -155,33 +155,36 @@ public class dlandItem implements CommandExecutor {
                         return true;
                     }
                 } else if (args[2].equalsIgnoreCase("dlandlist")) {
-                    if (args.length == 4) {
+                    if (args.length >= 4) {
                         ItemStack DLandList = new ItemStack(Material.PAPER, 1);
                         ItemMeta DLandListMeta = DLandList.getItemMeta();
                         DLandListMeta.setDisplayName("" + ChatColor.RED + ChatColor.BOLD + "D" + ChatColor.BLUE + ChatColor.BOLD + "Land");
                         List<String> loreList = new ArrayList<>();
-                        loreList.add(args[3]);
+                        if (args.length == 5) {
+                            if (args[4].equalsIgnoreCase("red")) {
+                                loreList.add(ChatColor.RED + args[3]);
+                            } else if (args[4].equalsIgnoreCase("blue")){
+                                loreList.add(ChatColor.BLUE + args[3]);
+                            }
+                        } else {
+                            loreList.add(args[3]);
+                        }
                         loreList.add(ChatColor.DARK_GRAY + "Создано админом DLand");
                         DLandListMeta.setLore(loreList);
                         DLandList.setItemMeta(DLandListMeta);
 
                         if (player.hasPermission("dlanditems.admin")){
                             player.getInventory().addItem(DLandList);
+                            return true;
                         } else {
                             sender.sendMessage(ChatColor.RED + "У выбранного игрока нет прав на хранение данного предмета");
+                            return true;
                         }
-                        return true;
                     } else {
                         sender.sendMessage(ChatColor.RED + "Вы не указали описание предмета (после DLandList)!");
+                        return true;
                     }
                 }
-            } else if (args[0].equals("help")) {
-                sender.sendMessage(ChatColor.DARK_PURPLE + "=====================" + ChatColor.LIGHT_PURPLE + "DLand_Items"+ ChatColor.DARK_PURPLE +"=====================");
-                sender.sendMessage(ChatColor.GRAY + "> DLand Items - это плагин на необычные");
-                sender.sendMessage(ChatColor.GRAY + "  предметы, которые можно встерить на сервере DLand");
-                sender.sendMessage(ChatColor.GRAY + "> Версия : " + DLand_Items.version);
-                sender.sendMessage(ChatColor.DARK_PURPLE + "====================================================");
-                return true;
             }
         } else {
             player.sendMessage(ChatColor.RED + "У вас нет прав, для использования DLand Items -> Give");
